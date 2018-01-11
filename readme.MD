@@ -1,7 +1,7 @@
 # Resource-URI-status-checker
 
 ## Goal
-This simple crawler visits URIs specified in RDF resources and checks their status, i.e. it tries to open and download the contents of the corresponding webpage. If the webpage contains any warning words or shows some error codes such as 404, the URIs of such webpages are collected in the log file (output.log).
+This simple crawler visits URIs specified in RDF resources and checks their status, i.e. it tries to open and download the contents of the corresponding webpage. If the webpage contains any warning words or shows some error codes such as 404, the corresponding URI will be automatically collected in the log file named as output.log.
 
 ## Getting Started
 ### Installation and Usage
