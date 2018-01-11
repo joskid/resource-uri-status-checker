@@ -27,7 +27,7 @@ public class Main {
 				rc.run(inputFilePath);
 			} else {
 				HelpFormatter formatter = new HelpFormatter();
-				formatter.printHelp("ResourceURIAliveChecker", options);
+				formatter.printHelp("ResourceURIStatusChecker", options);
 			}
 
 			long stopTime = System.currentTimeMillis();
