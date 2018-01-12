@@ -31,7 +31,11 @@ public class ResourceURIStatusChecker {
 	public void run(String inputFilePath) {
 		BufferedWriter bw = null;
 		FileWriter fw = null;
-		File file = new File(outputFilename);
+
+		File inputFile = new File(inputFilePath);
+		String inputFilename = inputFile.getName();
+		int pointPos = inputFilename.lastIndexOf(".");
+		File file = new File(inputFilename.substring(0, pointPos) + "_output.log");
 
 		try {
 			if (file.exists() != true) file.createNewFile();
@@ -44,13 +48,20 @@ public class ResourceURIStatusChecker {
 			QueryExecution qexec = QueryExecutionFactory.create(query, onetimeModel);
 			ResultSet results = qexec.execSelect() ;
 
+			long count = 1;
+			long modelSize = onetimeModel.size();
+
+			logger.info("Model size: " + modelSize);
 			for ( ; results.hasNext() ; ) {
+				logger.info("(" + count + "/" + modelSize + ")");
+
 				QuerySolution soln = results.nextSolution();
 				checkNodeURI(soln.get("s"), bw);
 				checkNodeURI(soln.get("p"), bw);
 				checkNodeURI(soln.get("o"), bw);
-			}
 
+				count += 1;
+			}
 		} catch (Exception e1) {
 			logger.error(e1.getMessage(), e1);
 		} finally {
