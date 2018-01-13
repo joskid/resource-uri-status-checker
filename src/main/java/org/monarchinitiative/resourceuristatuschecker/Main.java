@@ -14,8 +14,11 @@ public class Main {
 	public static void main(String[] args) {
 		try {
 			Option opt1 = Option.builder("i").argName("i").hasArg().desc("input file path").build();
+			Option opt2 = Option.builder("v").argName("v").desc("visit and check the status of the webpages that match URIs").build();
+			
 			Options options = new Options();
 			options.addOption(opt1);
+			options.addOption(opt2);
 			
 			CommandLineParser parser = new DefaultParser();
 			CommandLine cmdLine = parser.parse(options, args);
@@ -24,7 +27,12 @@ public class Main {
 			if (cmdLine.hasOption("i")) {
 				String inputFilePath = cmdLine.getOptionValue("i");
 				ResourceURIStatusChecker rc = new ResourceURIStatusChecker();
-				rc.run(inputFilePath);
+				
+				if (cmdLine.hasOption("v")) {
+					rc.run(inputFilePath, true);
+				} else {
+					rc.run(inputFilePath, false);
+				}
 			} else {
 				HelpFormatter formatter = new HelpFormatter();
 				formatter.printHelp("ResourceURIStatusChecker", options);
